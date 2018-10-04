@@ -87,10 +87,11 @@ static const CGFloat KKDefaultBordersSpacing = 10;
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    for (int i = 0; i < self.borders.count; i++) {
+    for (int i = 1; i < self.borders.count; i++) {
         CALayer *border = self.borders[i];
-        CGFloat xPos = ([self borderWidth] + self.bordersSpacing) * i + KKTextFieldPadding;
-        border.frame = CGRectMake(xPos, CGRectGetHeight(self.frame) - self.borderHeight, [self borderWidth], self.borderHeight);
+        CGFloat xPos = ([self borderWidth] + self.bordersSpacing) * (i) + KKTextFieldPadding;
+        border.frame = CGRectMake(xPos, self.frame.origin.x,
+                                  [self borderHeight], CGRectGetHeight(self.frame));
     }
 }
 
