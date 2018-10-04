@@ -10,6 +10,9 @@
 
 IB_DESIGNABLE
 
+@class KKPinCodeTextField;
+
+typedef void(^KKPinCodeTextFieldTextDidChangeBlock)(KKPinCodeTextField *textField);
 /// TextField for verification codes
 @interface KKPinCodeTextField : UITextField
 
@@ -27,6 +30,8 @@ IB_DESIGNABLE
 
 /// Bottom border color when digit is empty. Default value is UIColor.redColor
 @property (strong, nonatomic) IBInspectable UIColor *emptyDigitBorderColor;
+
+@property (copy, nonatomic) KKPinCodeTextFieldTextDidChangeBlock textDidChangeBlock;
 
 /// Clears all text
 - (void)clearText;

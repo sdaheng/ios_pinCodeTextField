@@ -8,8 +8,8 @@
 
 #import "KKPinCodeTextField.h"
 
-static const CGFloat KKTextFieldPadding = 20;
-static const CGFloat KKDigitToBorderSpace = 10;
+static const CGFloat KKTextFieldPadding = 1;
+static const CGFloat KKDigitToBorderSpace = 0;
 
 static const NSUInteger KKDefaultDigitsCount = 4;
 static const CGFloat KKDefaultBorderHeight = 4;
@@ -99,7 +99,7 @@ static const CGFloat KKDefaultBordersSpacing = 10;
 
 - (CGSize)intrinsicContentSize {
     CGSize size = [super intrinsicContentSize];
-    size.height += self.borderHeight * 2 + KKDigitToBorderSpace;
+    //    size.height += self.borderHeight * 2 + KKDigitToBorderSpace;
     
     return size;
 }
@@ -114,7 +114,7 @@ static const CGFloat KKDefaultBordersSpacing = 10;
 
 - (void)clearText {
     self.text = nil;
-    for (int i = 0; i < self.borders.count; i++) {
+    for (int i = 1; i < self.borders.count; i++) {
         CALayer *border = self.borders[i];
         border.borderColor = self.emptyDigitBorderColor.CGColor;
     }
@@ -143,9 +143,14 @@ static const CGFloat KKDefaultBordersSpacing = 10;
 
 - (void)textFieldDidChange:(UITextField *)sender {
     NSUInteger length = sender.text.length;
+    if (length == self.digitsCount) {
+        [sender resignFirstResponder];
+    }
     [self configureBorderColorAtIndex:length];
     [self configureInitialSpacingAtIndex:length];
     [self addSpacingToTextWithLength:length];
+    
+    self.textDidChangeBlock ? self.textDidChangeBlock(sender) : nil;
 }
 
 - (void)configureBorderColorAtIndex:(NSUInteger)index {
