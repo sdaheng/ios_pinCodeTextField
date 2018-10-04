@@ -89,9 +89,11 @@ static const CGFloat KKDefaultBordersSpacing = 10;
     
     for (int i = 1; i < self.borders.count; i++) {
         CALayer *border = self.borders[i];
-        CGFloat xPos = ([self borderWidth] + self.bordersSpacing) * (i) + KKTextFieldPadding;
-        border.frame = CGRectMake(xPos, self.frame.origin.x,
-                                  [self borderHeight], CGRectGetHeight(self.frame));
+        CGFloat xPos = ([self borderWidth] + self.bordersSpacing) * i + KKTextFieldPadding;
+        border.frame = CGRectMake(xPos,
+                                  self.bounds.origin.y,
+                                  [self borderHeight],
+                                  CGRectGetHeight(self.bounds));
     }
 }
 
